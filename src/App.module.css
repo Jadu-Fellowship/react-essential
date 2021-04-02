@@ -1,3 +1,11 @@
 .App {
   text-align: center;
 }
+
+button {
+  display: inline;
+}
+
+.item {
+  display: inline;
+}

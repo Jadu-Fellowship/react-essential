@@ -1,42 +1,95 @@
+import React, { Component, useState } from "react";
 import classes from "./App.module.css";
-import Navbar from "./navbar";
-function App() {
-  return (
-    <div className={classes.App}>
-      <Navbar />
-      <h2>Welcome to ReactJS Home Page</h2>
-      <p>
-        {" "}
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not{" "}
-      </p>
-    </div>
-  );
-}
+import Items from "./Items";
+// import Input from "./Input";
 
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <header className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <p>
-//             Edit <code>src/App.js</code> and save to reload.
-//           </p>
-//           <a
-//             className="App-link"
-//             href="https://reactjs.org"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Learn React
-//           </a>
-//         </header>
-//       </div>
-//     );
-//   }
+// function Apps() {
+//   const [items, setItems] = useState([]);
+//   const [inputValue, setInputValue] = useState("");
+//   const addItem = () => {
+//     const updatedValue = [...items];
+//     updatedValue.push({
+//       id: Date.now(),
+//       name: inputValue,
+//     });
+
+//     setItems(updatedValue);
+//     setInputValue("");
+//     console.log(items);
+//   };
+
+//   const onInputChange = (e) => {
+//     setInputValue(e.target.value);
+//   };
+//   return (
+//     <div className={classes.App}>
+//       <h1>Todo Application</h1>
+
+//       <input
+//         type="text"
+//         value={inputValue}
+//         onChange={onInputChange}
+//         placeholder="Todo Item"
+//       />
+//       <button onClick={addItem}>Add Item</button>
+//       {/* <Input
+//         inputValue={inputValue}
+//         onInputChange={onInputChange}
+//         addItem={addItem}
+//       /> */}
+
+//       <Items items={items} />
+//     </div>
+//   );
 // }
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+      inputValue: "",
+    };
+  }
+
+  addItem = () => {
+    const updatedValue = [...this.state.items];
+
+    updatedValue.push({
+      id: Date.now(),
+      name: this.state.inputValue,
+    });
+
+    this.setState({
+      items: updatedValue,
+      inputValue: "",
+    });
+  };
+
+  onInputChange = (e) => {
+    this.setState({
+      inputValue: e.target.value,
+    });
+  };
+
+  render() {
+    console.log(this.state.items, this.state.inputValue);
+    return (
+      <div className={classes.App}>
+        <h1>Todo Application</h1>
+
+        <input
+          type="text"
+          value={this.state.inputValue}
+          onChange={this.onInputChange}
+          placeholder="Todo Item"
+        />
+        <button onClick={this.addItem}>Add Item</button>
+
+        <Items items={this.state.items} />
+      </div>
+    );
+  }
+}
 
 export default App;
